@@ -18,6 +18,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(" ")
 
 INSTALLED_APPS = [
     'biblioweb.books.apps.BooksConfig',
+    'biblioweb.main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
