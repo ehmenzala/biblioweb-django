@@ -37,8 +37,8 @@ class Book(models.Model):
     language = models.CharField(verbose_name='Language', max_length=125)
     org_language = models.CharField(
         verbose_name='Original language', max_length=125)
-    pub_year = models.IntegerField(verbose_name='Year of publication',)
-    pages = models.IntegerField(verbose_name='No. of pages',)
+    pub_year = models.IntegerField(verbose_name='Year of publication')
+    pages = models.IntegerField(verbose_name='No. of pages')
     rating = models.IntegerField(verbose_name='Rating', db_default=0)
     description = models.TextField(
         verbose_name='Description', db_default='No description')
@@ -53,7 +53,7 @@ class Book(models.Model):
 class Cover(models.Model):
     book = models.OneToOneField(Book, on_delete=models.CASCADE)
     alt = models.CharField(verbose_name='Alternative text', max_length=255)
-    path = models.FilePathField(verbose_name='Image Path',)
+    path = models.FilePathField(verbose_name='Image Path')
 
 
 class Award(models.Model):
