@@ -1,11 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page Index</title>
-</head>
-<body>
-  Este es el nuevo index!
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Index</title>
+  </head>
+  <body>
+    <ul>
+      <li>
+        <a href="#">Books</a>
+      </li>
+      <li>
+        <a href="#">Genre</a>
+      </li>
+      <li>
+        <a href="#">Authors</a>
+      </li>
+      <li>
+        <a href="#">Ratings</a>
+      </li>
+      <li>
+        <a href="#">Subscription</a>
+      </li>
+    </ul>
+    <h1>Bibliweb</h1>
+    <p>La biblioteca virtual al alcance de un clic.</p>
+    <h2>Top in different genres</h2>
+    <p>*Libros ordenados de mayor a menor rating*</p>
+    <a href="{% url 'books:detail' 1 %}">View sample book</a>
+    <h2>New best books</h2>
+    <p>
+      *Mejores libros ordenados de forma descendente según su fecha de ingreso a
+      la biblioteca*
+    </p>
+    <h2>For children and parents</h2>
+    <p>
+      *Libros clasificados según géneros aptos para niños y padres. Con mejor
+      rating*
+    </p>
+    <h3>All books are available at the same time</h3>
+    <h3>Personal recommendations</h3>
+    <h3>Reading statistics</h3>
+    <p><em>This is a test image</em></p>
+    <img src="{% static 'test-image.svg' %}" alt="A test image" />
+  </body>
 </html>
