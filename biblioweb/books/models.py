@@ -31,6 +31,12 @@ class Genre(models.Model):
         return self.name
 
 
+class Cover(models.Model):
+    alt = models.CharField(verbose_name='Alternative text', max_length=255)
+    path = models.ImageField(verbose_name='Cover Path',
+                             upload_to='images/covers/', null=True, blank=True)
+
+
 class Book(models.Model):
     isbn = models.CharField(verbose_name='ISBN', max_length=13)
     title = models.CharField(verbose_name='Title', max_length=125)
@@ -45,15 +51,11 @@ class Book(models.Model):
     blurb = models.TextField(verbose_name='Blurb', db_default='No blurb')
     authors = models.ManyToManyField(Author)
     genres = models.ManyToManyField(Genre)
+    cover = models.OneToOneField(
+        Cover, null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self) -> str:
         return self.title
-
-
-class Cover(models.Model):
-    book = models.OneToOneField(Book, on_delete=models.CASCADE)
-    alt = models.CharField(verbose_name='Alternative text', max_length=255)
-    path = models.FilePathField(verbose_name='Image Path')
 
 
 class Award(models.Model):
