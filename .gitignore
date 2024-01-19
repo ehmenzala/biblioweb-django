@@ -6,3 +6,6 @@ db.sqlite3
 
 # env
 .env
+
+# dev media files
+media/
