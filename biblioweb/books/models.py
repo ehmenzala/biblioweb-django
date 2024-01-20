@@ -33,8 +33,8 @@ class Genre(models.Model):
 
 class Cover(models.Model):
     alt = models.CharField(verbose_name='Alternative text', max_length=255)
-    path = models.ImageField(verbose_name='Cover Path',
-                             upload_to='images/covers/', null=True, blank=True)
+    image = models.ImageField(verbose_name='Image',
+                              upload_to='images/covers/', null=True, blank=True)
 
 
 class Book(models.Model):
