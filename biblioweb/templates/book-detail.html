@@ -6,7 +6,8 @@
     <title>Book Detail | {{ book.title }}</title>
   </head>
   <body>
-    <a href="{% url 'main:index' %}">Return to home</a>
+    <a href="{% url 'main:index' %}">Return to index page</a>
+    <a href="{% url 'books:index' %}">Return to books page</a>
     <h1>Book Detail</h1>
     <h2>{{ book.title }}</h2>
     <p>

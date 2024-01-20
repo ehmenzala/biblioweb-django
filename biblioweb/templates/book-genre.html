@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Books</title>
+    <title>Genre | {{ selected_genre.name }}</title>
   </head>
   <body>
-    <a href="{% url 'books:index' %}">Return to books page (You're here)</a>
+    <a href="{% url 'books:index' %}">Return to books page</a>
     <a href="{% url 'main:index' %}">Return to index page</a>
     <h2>Genres</h2>
     <ul>
       {% for genre in genres %}
       <li>
-        <a href="{% url 'books:genre' genre.id %}">{{ genre.name }}</a>
+        <a
+          href="{% url 'books:genre' genre.id %}"
+          {% if genre.id == selected_genre.id %} aria-current="page" style="color: red;" {% endif  %}
+          >{{ genre.name }}</a
+        >
       </li>
       {% endfor %}
     </ul>
-    <h1>Index books</h1>
-    <p>*Grid of ALL books*</p>
+    <h1>Books on {{ selected_genre.name }} genre</h1>
+    <p>*Grid of books on this genre*</p>
     {% if books %}
     <ul>
       {% for book in books %}
