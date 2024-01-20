@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book | {{ book.title }}</title>
+    <title>Book Detail | {{ book.title }}</title>
   </head>
   <body>
-    <h1>{{ book.title }}</h1>
+    <a href="{% url 'main:index' %}">Return to home</a>
+    <h1>Book Detail</h1>
+    <h2>{{ book.title }}</h2>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, rem nulla ea
       nesciunt quidem accusamus nisi asperiores alias! Doloribus praesentium,
       sipsum itaque aliquam maiores nam id obcaecati vel nihil sequi. This is
       the detail page for the {{ book.title }} Book. ID: {{ book.id }}
     </p>
+    {% if book.cover.image %}
+    <img src="{{ book.cover.image.url }}" alt="{{ book.cover.alt }}" />
+    {% endif %}
   </body>
 </html>
