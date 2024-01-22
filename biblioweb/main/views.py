@@ -1,7 +1,8 @@
 from django.http import HttpResponse, HttpRequest
-from django.template import loader
+from django.shortcuts import render
+from biblioweb.books.models import Book
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    template = loader.get_template('index.html')
-    return HttpResponse(template.render({}, request))
+    books = Book.objects.all()
+    return render(request, 'index.html', {"books": books})
