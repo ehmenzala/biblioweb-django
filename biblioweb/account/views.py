@@ -1,11 +1,12 @@
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.urls import reverse
 from .forms import LoginForm, RegistrationForm
 
 
-def user_login(request: HttpRequest) -> HttpResponse:
+def login_user(request: HttpRequest) -> HttpResponse:
 
     if request.method == 'POST':
         login_form = LoginForm(request.POST)
@@ -33,8 +34,10 @@ def registration(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         registration_form = RegistrationForm(request.POST)
         if registration_form.is_valid():
-            # TODO: Start session here
-            return HttpResponseRedirect(reverse('main:index'))
+            cd = registration_form.cleaned_data
+            user = User.objects.create_user(
+                username=cd['username'], email=cd['email'], password=cd['password'])
+            return HttpResponseRedirect(reverse('account:login'))
         else:
             registration_form = RegistrationForm(request.POST)
             return render(request, 'account/registration.html', {'form': registration_form})
@@ -42,3 +45,8 @@ def registration(request: HttpRequest) -> HttpResponse:
     if request.method == 'GET':
         registration_form = RegistrationForm()
         return render(request, 'account/registration.html', {'form': registration_form})
+
+
+def logout_user(request: HttpRequest) -> HttpResponse:
+    logout(request)
+    return HttpResponseRedirect(reverse('main:index'))

@@ -5,11 +5,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Page Index</title>
+    <style>
+      body {
+        background-color: Canvas;
+        color: CanvasText;
+        color-scheme: light dark;
+      }
+    </style>
   </head>
   <body>
+    {% if user.is_authenticated %}
+    <p>Bienvenido, usuario llamado {{ user.username }}</p>
+    {% else %}
+    <p>No te has logueado aún</p>
+    {% endif %}
     <ul>
       <li>
-        <a href="{% url 'books:index'%}">Books</a>
+        <a href="{% url 'books:index' %}">Books</a>
       </li>
       <li>
         <a href="#">Genre</a>
@@ -23,6 +35,17 @@
       <li>
         <a href="#">Subscription</a>
       </li>
+      <li>
+        <a href="{% url 'account:registration' %}">Registrarse ➡️</a>
+      </li>
+      <li>
+        <a href="{% url 'account:login' %}">Iniciar sesión ➡️</a>
+      </li>
+      {% if user.is_authenticated %}
+      <li>
+        <a href="{% url 'account:logout' %}">Cerrar sesión ➡️</a>
+      </li>
+      {% endif %}
     </ul>
     <h1>Biblioweb</h1>
     <p>La biblioteca virtual al alcance de un clic.</p>
