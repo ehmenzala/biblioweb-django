@@ -40,6 +40,7 @@ class Cover(models.Model):
 class Book(models.Model):
     isbn = models.CharField(verbose_name='ISBN', max_length=13)
     title = models.CharField(verbose_name='Title', max_length=125)
+    slug = models.CharField(verbose_name='Slug', max_length=125)
     language = models.CharField(verbose_name='Language', max_length=125)
     org_language = models.CharField(
         verbose_name='Original language', max_length=125)
