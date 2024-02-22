@@ -7,16 +7,34 @@
     <title>Book Detail | {{ book.title }}</title>
   </head>
   <body>
-    <a href="{% url 'main:index' %}">Return to index page</a>
-    <a href="{% url 'books:index' %}">Return to books page</a>
-    <h1>Book Detail</h1>
-    <h2>{{ book.title }}</h2>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, rem nulla ea
-      nesciunt quidem accusamus nisi asperiores alias! Doloribus praesentium,
-      sipsum itaque aliquam maiores nam id obcaecati vel nihil sequi. This is
-      the detail page for the {{ book.title }} Book. ID: {{ book.id }}
-    </p>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'main:index' %}">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'books:index' %}">Books</a>
+        </li>
+        <li>
+          <a href="{% url 'books:detail' book.slug %}">{{ book.title }}</a>
+        </li>
+      </ul>
+    </nav>
+    <h1>{{ book.title }}</h1>
+    {% for author in book.authors.all %}
+    <div><b>Autor: </b><span>{{ author }}</span></div>
+    {% endfor %}
+
+    <div><b>Año: </b><span>{{ book.pub_year }}</span></div>
+
+    {% for genre in book.genres.all %}
+    <div><b>Género: </b><span>{{ genre }}</span></div>
+    {% endfor %}
+
+    <div><b> Páginas</b>: <span>{{ book.pages }}</span></div>
+    <div><b> Idioma</b>: <span>{{ book.language }}</span></div>
+    <div><b> Idioma original</b>: <span>{{ book.org_language }}</span></div>
+
     {% if book.cover.image %}
     <img src="{{ book.cover.image.url }}" alt="{{ book.cover.alt }}" />
     {% else %}
@@ -25,5 +43,20 @@
       alt="Imagen de portada no disponible"
     />
     {% endif %}
+
+    <h2>Description</h2>
+    <p>{{ book.description }}</p>
+
+    <h2>Blurb</h2>
+    <p>{{ book.blurb }}</p>
+
+    <h2>Awards</h2>
+    {% for award in book.award_set.all %}
+    <ul>
+      <li>{{ award }}</li>
+    </ul>
+    {% endfor %}
+
+    <a href="{% url 'books:read' book.slug %}">Read this book</a>
   </body>
 </html>
