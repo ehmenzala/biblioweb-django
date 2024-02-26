@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -6,13 +7,31 @@
     <title>Read Book | {{ book.title }}</title>
   </head>
   <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'main:index' %}">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'books:index' %}">Books</a>
+        </li>
+        <li>
+          <a href="{% url 'books:detail' book.slug %}">{{ book.title }}</a>
+        </li>
+        <li>
+          <a href="{% url 'books:detail' book.slug %}" aria-current="page"
+            >{{ book.title }} (Reading)</a
+          >
+        </li>
+      </ul>
+    </nav>
+
     <h1>Read Book {{ book.title }}</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-      perspiciatis sapiente porro iusto error suscipit eaque sint dolore
-      quaerat? Recusandae incidunt qui dignissimos. Consequuntur, cum magnam
-      maxime quas minima harum?
-    </p>
+    <p>{{ book.blurb }}</p>
+    <img
+      src="{% static 'books/'|add:book.slug|add:'/silly-face.webp' %}"
+      alt="Silly face: For testing purposes"
+    />
     <div class="reader" style="border: 2px solid black">
       <form action="">
         <select name="chapter" id="">
@@ -22,25 +41,17 @@
         </select>
         <button type="submit">Go</button>
       </form>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellat
-        dolorum tempora voluptas amet facere distinctio iusto dignissimos vel?
-        Necessitatibus nihil excepturi amet iusto maxime, placeat fugit
-        consectetur facere veniam.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellat
-        dolorum tempora voluptas amet facere distinctio iusto dignissimos vel?
-        Necessitatibus nihil excepturi amet iusto maxime, placeat fugit
-        consectetur facere veniam.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellat
-        dolorum tempora voluptas amet facere distinctio iusto dignissimos vel?
-        Necessitatibus nihil excepturi amet iusto maxime, placeat fugit
-        consectetur facere veniam.
-      </p>
-      <p>1, 2, 3, 4, 5 ... 10</p>
+      <h2>Chapter content:</h2>
+      <p>{{ chapter_content | safe }}</p>
+      <div>
+        <button>1,</button>
+        <button>2,</button>
+        <button>3,</button>
+        <button>4,</button>
+        <button>5,</button>
+        <span>...</span>
+        <button>10</button>
+      </div>
     </div>
   </body>
 </html>
