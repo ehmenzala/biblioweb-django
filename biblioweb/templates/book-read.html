@@ -19,7 +19,7 @@
           <a href="{% url 'books:detail' book.slug %}">{{ book.title }}</a>
         </li>
         <li>
-          <a href="{% url 'books:detail' book.slug %}" aria-current="page"
+          <a href="{% url 'books:read' book.slug %}" aria-current="page"
             >{{ book.title }} (Reading)</a
           >
         </li>
@@ -41,16 +41,21 @@
         </select>
         <button type="submit">Go</button>
       </form>
-      <h2>Chapter content:</h2>
-      <p>{{ chapter_content | safe }}</p>
+      <h1>{{ book.title }}</h1>
+      <hr />
+      {{ chapter_content | safe }}
       <div>
-        <button>1,</button>
-        <button>2,</button>
-        <button>3,</button>
-        <button>4,</button>
-        <button>5,</button>
-        <span>...</span>
-        <button>10</button>
+        {% for number in list_of_page_numbers %}
+        <a
+          style="
+            padding: 0.25rem;
+            border: 1px solid black;
+            display: inline-block;
+          "
+          href="{% url 'books:read' book.slug %}?page={{number}}"
+          >{{ number }},</a
+        >
+        {% endfor %}
       </div>
     </div>
   </body>

@@ -1,9 +1,10 @@
 from django.conf import settings
-from django.http import HttpResponse, HttpRequest, Http404, HttpResponseBadRequest
+from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render
 from .models import Book, Genre
-from .utils import get_line_indices_for_paragraphs
+from .utils import get_line_indices_for_paragraphs, get_list_of_total_pages
 from pathlib import Path
+import markdown
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -57,11 +58,19 @@ def read(request: HttpRequest, slug: str) -> HttpResponse:
         )
         with chapter_path.open() as chapter_file:
             chapter_content = ''
+
             raw_lines = chapter_file.readlines()
             lines = [line for line in raw_lines if line != '\n']
-            paragraphs_indices = get_line_indices_for_paragraphs(page, lines)
+
+            paragraphs_per_page = 9  # TODO: Make this value dynamic or configurable
+            list_of_page_numbers = get_list_of_total_pages(
+                lines, paragraphs_per_page)
+
+            paragraphs_indices = get_line_indices_for_paragraphs(
+                page, lines, paragraphs_per_page)
+
             for i in paragraphs_indices:
-                chapter_content += lines[i]
+                chapter_content += markdown.markdown(lines[i])
 
     except FileNotFoundError as err:
         print(f'File \'{err.filename}\' does not exists):')
@@ -70,6 +79,7 @@ def read(request: HttpRequest, slug: str) -> HttpResponse:
         "book": book,
         "chapter": chapter,
         "chapter_content": chapter_content,
-        "page": page
+        "page": page,
+        "list_of_page_numbers": list_of_page_numbers,
     }
     return render(request, 'book-read.html', context)

@@ -1,13 +1,12 @@
 from typing import List
+import math
 
-PARAGRAPHS_PER_PAGE = 9
 
-
-def get_line_indices_for_paragraphs(page: int, lines: List[int]) -> List[int]:
+def get_line_indices_for_paragraphs(page: int, lines: List[int], paragraphs_per_page: int) -> List[int]:
     previous_page = page - 1
     start_paragraph = 0 if (page == 1) else (
-        previous_page * PARAGRAPHS_PER_PAGE)
-    end_paragraph = page * PARAGRAPHS_PER_PAGE
+        previous_page * paragraphs_per_page)
+    end_paragraph = page * paragraphs_per_page
     indices = []
 
     for i in range(start_paragraph, end_paragraph):
@@ -21,3 +20,9 @@ def get_line_indices_for_paragraphs(page: int, lines: List[int]) -> List[int]:
             return []
 
     return indices
+
+
+def get_list_of_total_pages(lines: List[int], paragraphs_per_page: int) -> int:
+    raw_total_pages = len(lines) / paragraphs_per_page
+    total_pages = math.ceil(raw_total_pages)
+    return range(1, total_pages + 1)
