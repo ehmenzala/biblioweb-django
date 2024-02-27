@@ -62,7 +62,6 @@ def read(request: HttpRequest, slug: str) -> HttpResponse:
             paragraphs_indices = get_line_indices_for_paragraphs(page, lines)
             for i in paragraphs_indices:
                 chapter_content += lines[i]
-            chapter_file.close()
 
     except FileNotFoundError as err:
         print(f'File \'{err.filename}\' does not exists):')
