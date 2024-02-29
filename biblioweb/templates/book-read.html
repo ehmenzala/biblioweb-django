@@ -28,10 +28,6 @@
 
     <h1>Read Book {{ book.title }}</h1>
     <p>{{ book.blurb }}</p>
-    <img
-      src="{% static 'books/'|add:book.slug|add:'/silly-face.webp' %}"
-      alt="Silly face: For testing purposes"
-    />
     <div class="reader" style="border: 2px solid black">
       <form action="">
         <select name="chapter" id="">
