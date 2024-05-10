@@ -29,11 +29,11 @@
     <h1>Read Book {{ book.title }}</h1>
     <p>{{ book.blurb }}</p>
     <div class="reader" style="border: 2px solid black">
-      <form action="">
-        <select name="chapter" id="">
-          <option value="">Chapter</option>
-          <option value="1">Chapter 1</option>
-          <option value="2">Chapter 2</option>
+      <form action="{% url 'books:read' book.slug %}" method="GET">
+        <select name="chapter" aria-label="Chapter">
+          {% for number in list_of_chapter_numbers %}
+          <option value="{{ number }}" {% if number  == chapter %}selected{% endif %}>Chapter {{ number }}</option>
+          {% endfor %}
         </select>
         <button type="submit">Go</button>
       </form>
@@ -48,7 +48,7 @@
             border: 1px solid black;
             display: inline-block;
           "
-          href="{% url 'books:read' book.slug %}?page={{number}}"
+          href="{% url 'books:read' book.slug %}?page={{number}}&chapter={{chapter}}"
           >{{ number }},</a
         >
         {% endfor %}

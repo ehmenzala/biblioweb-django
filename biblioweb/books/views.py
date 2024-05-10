@@ -56,6 +56,22 @@ def read(request: HttpRequest, slug: str) -> HttpResponse:
             settings.BASE_DIR /
             f'biblioweb/books/static/books/{book.slug}/ch{chapter}.txt'
         )
+
+        chapters_dir = Path(
+            settings.BASE_DIR /
+            f'biblioweb/books/static/books/{book.slug}'
+        )
+
+        chapters = []
+        chapter_count = 0
+
+        for root, dirs, files in chapters_dir.walk(on_error=print):
+
+            for file in files:
+                chapter_count += 1
+                print(f'chapter_count: {chapter_count}')
+            chapters = range(1, chapter_count + 1)
+
         with chapter_path.open() as chapter_file:
             chapter_content = ''
 
@@ -81,5 +97,6 @@ def read(request: HttpRequest, slug: str) -> HttpResponse:
         "chapter_content": chapter_content,
         "page": page,
         "list_of_page_numbers": list_of_page_numbers,
+        "list_of_chapter_numbers": chapters,
     }
     return render(request, 'book-read.html', context)
