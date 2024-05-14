@@ -104,7 +104,10 @@ USE_TZ = False  # UTC
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'biblioweb/static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'biblioweb/staticprod')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'biblioweb/static')
+]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'biblioweb/media')
