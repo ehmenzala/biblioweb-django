@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render
-from .models import Book, Genre
+from .models import Book, Genre, Author
 from .utils import get_line_indices_for_paragraphs, get_list_of_total_pages
 from pathlib import Path
 import markdown
@@ -40,6 +40,12 @@ def genre(request: HttpRequest, genre_id: int) -> HttpResponse:
         "selected_genre": selected_genre,
     }
     return render(request, 'book-genre.html', context)
+
+
+def authors(request: HttpRequest) -> HttpResponse:
+    authors = Author.objects.all()
+    context = {"authors": authors}
+    return render(request, 'authors.html', context)
 
 
 def read(request: HttpRequest, slug: str) -> HttpResponse:
