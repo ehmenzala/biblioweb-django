@@ -1,79 +1,37 @@
+<!-- prettier-ignore -->
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page Index</title>
-    <style>
-      body {
-        background-color: Canvas;
-        color: CanvasText;
-        color-scheme: light dark;
-      }
-    </style>
-  </head>
-  <body>
-    {% if user.is_authenticated %}
-    <p>Bienvenido, usuario llamado {{ user.username }}</p>
-    {% else %}
-    <p>No te has logueado aún</p>
-    {% endif %}
-    <ul>
-      <li>
-        <a href="{% url 'books:index' %}">Books</a>
-      </li>
-      <li>
-        <a href="#">Genre</a>
-      </li>
-      <li>
-        <a href="#">Authors</a>
-      </li>
-      <li>
-        <a href="#">Ratings</a>
-      </li>
-      <li>
-        <a href="#">Subscription</a>
-      </li>
-      <li>
-        <a href="{% url 'account:registration' %}">Registrarse ➡️</a>
-      </li>
-      <li>
-        <a href="{% url 'account:login' %}">Iniciar sesión ➡️</a>
-      </li>
-      {% if user.is_authenticated %}
-      <li>
-        <a href="{% url 'account:logout' %}">Cerrar sesión ➡️</a>
-      </li>
-      {% endif %}
-    </ul>
-    <h1>Biblioweb</h1>
-    <p>La biblioteca virtual al alcance de un clic.</p>
-    <h2>Top in different genres</h2>
-    <p>*Libros ordenados de mayor a menor rating*</p>
-    <h2>New best books</h2>
-    <p>
-      *Mejores libros ordenados de forma descendente según su fecha de ingreso a
-      la biblioteca*
-    </p>
-    {% if books %}
-    <ul>
-      {% for book in books %}
-      <li>
-        <a href="{% url 'books:detail' book.slug %}">{{ book.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>There are no books available.</p>
-    {% endif %}
-    <h2>For children and parents</h2>
-    <p>
-      *Libros clasificados según géneros aptos para niños y padres. Con mejor
-      rating*
-    </p>
-    <h3>All books are available at the same time</h3>
-    <h3>Personal recommendations</h3>
-    <h3>Reading statistics</h3>
-  </body>
-</html>
+{% block title %}Biblioweb: La Biblioteca Virtual al Alcance de un Clic{% endblock title %}
+
+{% block content %}
+<section class="container section hero-section">
+  <h1>Biblioweb</h1>
+  <p>La biblioteca virtual al alcance de un clic.</p>
+  <h2>Top in different genres</h2>
+  <p>*Libros ordenados de mayor a menor rating*</p>
+  <h2>New best books</h2>
+  <p>
+    *Mejores libros ordenados de forma descendente según su fecha de ingreso a
+    la biblioteca*
+  </p>
+  {% if books %}
+  <ul>
+    {% for book in books %}
+    <li>
+      <a href="{% url 'books:detail' book.slug %}">{{ book.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>There are no books available.</p>
+  {% endif %}
+  <h2>For children and parents</h2>
+  <p>
+    *Libros clasificados según géneros aptos para niños y padres. Con mejor
+    rating*
+  </p>
+  <h3>All books are available at the same time</h3>
+  <h3>Personal recommendations</h3>
+  <h3>Reading statistics</h3>
+</section>
+{% endblock content %}
