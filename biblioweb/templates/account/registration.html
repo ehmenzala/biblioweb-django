@@ -10,7 +10,6 @@
     <form action="{% url 'account:registration' %}" method="POST">
       <fieldset>
         <legend>Regístrate</legend>
-        <!-- prettier-ignore -->
         {% csrf_token %}
         {{ form }}
         <button type="submit">Registrarse</button>

@@ -10,7 +10,6 @@
     <form action="{% url 'account:login' %}" method="POST">
       <fieldset>
         <legend>Iniciar sesión</legend>
-        <!-- prettier-ignore -->
         {% csrf_token %}
         {{ form }}
         <button type="submit">Entrar</button>
